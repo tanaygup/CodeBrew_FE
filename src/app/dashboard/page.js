@@ -40,5 +40,5 @@ export default function DashboardPage() {
 
   if (!user) return <p>Loading...</p>;
 
-  return <div>Welcome, {user?.email}</div>;
+  return <div>{user.message}</div>;
 }
