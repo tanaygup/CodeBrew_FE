@@ -1,0 +1,10 @@
+.gutter {
+  background-color: #e2e8f0; /* gray-200 */
+  background-clip: padding-box;
+  cursor: col-resize;
+}
+
+.gutter.gutter-horizontal {
+  width: 6px;
+  margin: 0 -3px;
+}

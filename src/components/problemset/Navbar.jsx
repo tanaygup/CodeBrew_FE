@@ -1,7 +1,7 @@
 "use client";
 
 import SearchBar from "@/components/problemset/SearchBar";
-import UserMenu from "@/components/layout/ProfileDropdown";
+import UserMenu from "@/components/utils/ProfileDropdown";
 import Logo from "../utils/Logo";
 
 export default function ProblemsetNavbar({ user }) {
