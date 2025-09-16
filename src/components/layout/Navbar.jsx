@@ -6,6 +6,7 @@ import { Code } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import UserMenu from "@/components/layout/ProfileDropdown";
+import Logo from "../utils/Logo";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -59,16 +60,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="p-2 bg-accent/10 rounded-lg">
-                <Code className="h-6 w-6 text-accent" />
-              </div>
-              <span className="font-bold text-xl text-foreground">
-                CodeBrewer
-              </span>
-            </Link>
-          </div>
+          <Logo />
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/problems"
