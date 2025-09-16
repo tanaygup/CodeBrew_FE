@@ -24,7 +24,7 @@ export default function UserMenu({ user }) {
         className="flex items-center gap-2"
       >
         <img
-          src={user.user_metadata?.avatar_url}
+          src={user?.user_metadata?.avatar_url}
           alt="Profile"
           className="w-8 h-8 rounded-full cursor-pointer"
         />
