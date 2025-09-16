@@ -1,12 +1,14 @@
-// src/components/layout/Navbar.jsx
 "use client";
+
 import Link from "next/link";
+import { User, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Code } from "lucide-react";
-import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabaseClient";
-import UserMenu from "@/components/utils/ProfileDropdown";
 import Logo from "../utils/Logo";
+import RunButton from "../utils/Run";
+import SubmitButton from "../utils/Submit";
+import { useEffect, useState } from "react";
+import UserMenu from "../utils/ProfileDropdown";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -55,42 +57,24 @@ export default function Navbar() {
       listener.subscription.unsubscribe();
     };
   }, []);
-
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
+      <div className="container mx-2 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Logo />
-          <div className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/problems"
-              className="text-muted-foreground hover:text-accent transition-colors font-medium"
-            >
-              Problems
+          <div className="flex items-center space-x-2">
+            <Link href="/problems">
+              <Button variant="ghost" size="sm" className="p-2 cursor-pointer">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
             </Link>
-            <Link
-              href="/leaderboard"
-              className="text-muted-foreground hover:text-accent transition-colors font-medium"
-            >
-              Leaderboard
-            </Link>
-            {user ? (
-              <div className="flex items-center gap-3">
-                <UserMenu user={user} />
-              </div>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="text-muted-foreground hover:text-accent transition-colors font-medium"
-                >
-                  Login
-                </Link>
-                <Button asChild className="bg-accent hover:bg-accent/90">
-                  <Link href="/signup">Sign Up</Link>
-                </Button>
-              </>
-            )}
+            <Logo />
+          </div>
+          <div className="flex items-center space-x-3">
+            <RunButton />
+            <SubmitButton />
+          </div>
+          <div className="flex items-center gap-3">
+            <UserMenu user={user} />
           </div>
         </div>
       </div>
