@@ -9,9 +9,11 @@ import SubmitButton from "../utils/Submit";
 import { useEffect, useState } from "react";
 import UserMenu from "../utils/ProfileDropdown";
 import { supabase } from "@/lib/supabaseClient";
+import LanguageSelector from "./LanguageSelector";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
+  const [lang, setLang] = useState("cpp");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -70,8 +72,11 @@ export default function Navbar() {
             <Logo />
           </div>
           <div className="flex items-center space-x-3">
-            <RunButton />
+            {/* <RunButton /> */}
             <SubmitButton />
+            <div className="p-2 border-b border-border flex justify-end">
+              <LanguageSelector onChange={setLang} defaultValue="cpp" />
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <UserMenu user={user} />
