@@ -7,7 +7,12 @@ import Navbar from "@/components/problem/Navbar";
 import ProblemHeader from "@/components/problem/ProblemHeader";
 import { useParams } from "next/navigation";
 import Split from "react-split";
-import "@/styles/split.css"; // 👈 import custom gutter styles
+import "@/styles/split.css";
+import Editor from "@monaco-editor/react";
+import { useState } from "react";
+import LanguageSelector from "@/components/problem/LanguageSelector";
+import RunButton from "@/components/utils/Run";
+import Output from "@/components/problem/Output";
 
 // temporary mock data
 const mockProblemsDetailed = [
@@ -39,6 +44,8 @@ export default function ProblemDetailPage() {
   const params = useParams();
   const problemId = Number(params.id);
   const problem = mockProblemsDetailed.find((p) => p.id === problemId);
+  const [code, setCode] = useState("// Write your solution here...");
+  const [result, setResult] = useState(null);
 
   if (!problem) {
     return <div className="p-6">Problem not found</div>;
@@ -63,7 +70,7 @@ export default function ProblemDetailPage() {
           }}
         >
           {/* Left Column */}
-          <div className="w-1/2 border-r border-border overflow-y-auto p-6 space-y-6">
+          <div className="border-r border-border overflow-y-auto p-6 space-y-6">
             <ProblemHeader problem={problem} />
             <ProblemDescription description={problem.description} />
             <Examples examples={problem.examples} />
@@ -71,8 +78,30 @@ export default function ProblemDetailPage() {
           </div>
 
           {/* Right Column */}
-          <div className="w-1/2 flex items-center justify-center text-muted-foreground">
-            Code editor coming soon 🚧
+          <div className="flex flex-col h-full">
+            <div className="flex-1">
+              <Editor
+                height="100%"
+                defaultLanguage="cpp"
+                theme="vs-dark"
+                value={code}
+                onChange={(value) => setCode(value || "")}
+                options={{
+                  minimap: { enabled: false },
+                  fontSize: 14,
+                  scrollBeyondLastLine: false,
+                }}
+              />
+            </div>
+            <div className="p-4 border-t border-gray-700 bg-gray-900 flex justify-end">
+              <RunButton
+                code={code}
+                language="cpp"
+                stdin="1 2 3"
+                onResult={setResult}
+              />
+              <Output result={result} />
+            </div>
           </div>
         </Split>
       </div>
