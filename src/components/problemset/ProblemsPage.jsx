@@ -1,18 +1,27 @@
 // src/app/problemset/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Filters from "@/components/problemset/Filters";
 import ProblemsTable from "@/components/problemset/ProblemTable";
 import { mockProblems } from "@/lib/MockData";
+import { fetchProblems } from "@/services/problemService";
 
 export default function ProblemsPage() {
   const [difficultyFilter, setDifficultyFilter] = useState("all");
   const [selectedTags, setSelectedTags] = useState([]);
+  const [problems, setProblems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const allTags = Array.from(new Set(mockProblems.flatMap((p) => p.tags)));
+  useEffect(() => {
+    fetchProblems()
+      .then((data) => setProblems(data))
+      .finally(() => setLoading(false));
+  }, []);
 
-  const filteredProblems = mockProblems.filter((problem) => {
+  const allTags = Array.from(new Set(problems.flatMap((p) => p.tags)));
+
+  const filteredProblems = problems.filter((problem) => {
     const difficultyMatch =
       difficultyFilter === "all" || problem.difficulty === difficultyFilter;
     const tagMatch =

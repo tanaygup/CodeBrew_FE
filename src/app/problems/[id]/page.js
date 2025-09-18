@@ -93,13 +93,15 @@ export default function ProblemDetailPage() {
                 }}
               />
             </div>
-            <div className="p-4 border-t border-gray-700 bg-gray-900 flex justify-end">
-              <RunButton
-                code={code}
-                language="cpp"
-                stdin="1 2 3"
-                onResult={setResult}
-              />
+            <div className="p-4 border-t border-gray-700 bg-gray-950">
+              <div className="flex items-center justify-between mb-3">
+                <RunButton
+                  code={code}
+                  language="cpp"
+                  stdin="1 2 3"
+                  onResult={setResult}
+                />
+              </div>
               <Output result={result} />
             </div>
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 export default function RunButton({ code, language, stdin, onResult }) {
@@ -14,19 +14,12 @@ export default function RunButton({ code, language, stdin, onResult }) {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/code/execute`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            source_code: code,
-            language,
-            stdin,
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ source_code: code, language, stdin }),
         }
       );
 
       const data = await res.json();
-      console.log("Execution result:", data); // ✅ check in browser console
       onResult?.(data);
     } catch (err) {
       console.error("Run error:", err);
@@ -40,12 +33,19 @@ export default function RunButton({ code, language, stdin, onResult }) {
     <Button
       onClick={handleRun}
       disabled={loading}
-      variant="outline"
-      size="sm"
-      className="flex items-center space-x-2 cursor-pointer"
+      className="flex cursor-pointer items-center gap-2 px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
     >
-      <Play className="h-4 w-4" />
-      <span>{loading ? "Running..." : "Run"}</span>
+      {loading ? (
+        <>
+          <Loader2 className="h-4 w-4 animate-spin" />
+          <span>Running...</span>
+        </>
+      ) : (
+        <>
+          <Play className="h-4 w-4" />
+          <span>Run</span>
+        </>
+      )}
     </Button>
   );
 }
