@@ -3,6 +3,7 @@
 import SearchBar from "@/components/problemset/SearchBar";
 import UserMenu from "@/components/utils/ProfileDropdown";
 import Logo from "../utils/Logo";
+import Link from "next/link";
 
 export default function ProblemsetNavbar({ user }) {
   return (
@@ -17,6 +18,12 @@ export default function ProblemsetNavbar({ user }) {
 
       {/* Right: User Profile */}
       <div className="flex items-center">
+        <Link
+          href="/problems/contribute"
+          className="mr-4 text-sm font-medium text-blue-600 hover:underline"
+        >
+          Contribute a Problem
+        </Link>
         <UserMenu user={user} />
       </div>
     </nav>
